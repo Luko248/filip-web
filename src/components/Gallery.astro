@@ -1,0 +1,62 @@
+---
+/**
+ * Visual gallery.
+ *
+ * These tiles are CSS-generated "posters" so the page looks intentional and
+ * complete without bundling third-party photos. To use real photos: drop files
+ * into `public/images/` (e.g. gallery-1.jpg) and set them as a background on the
+ * matching `.tile` via inline style, e.g.:
+ *   style="background-image:url('/images/gallery-1.jpg');background-size:cover"
+ * (see public/images/README.md).
+ */
+const tiles = [
+  { tag: "filio", sub: "2008 — battle stage", from: "#36e2ff", to: "#8b5cf6" },
+  { tag: "S Tebou Bez Tebe", sub: "SEH 1/4", from: "#e248ff", to: "#8b5cf6" },
+  { tag: "dream diven boy", sub: "restart · 2022", from: "#8b5cf6", to: "#e248ff" },
+  { tag: "Až do bílýho rána", sub: "SEH 3/4", from: "#36e2ff", to: "#e248ff" },
+  { tag: "Mezitím", sub: "prod. DEYNEL", from: "#a855f7", to: "#36e2ff" },
+  { tag: "ddbfilio", sub: "dnes", from: "#e248ff", to: "#36e2ff" },
+];
+---
+
+<section id="gallery" class="snap relative mx-auto max-w-6xl px-6 py-24 sm:py-32">
+  <div class="reveal mb-14 max-w-2xl">
+    <p class="mb-3 text-xs tracking-[0.3em] text-[var(--color-cyan)] uppercase">
+      Galerie
+    </p>
+    <h2
+      class="font-[var(--font-display)] text-4xl font-extrabold tracking-tight text-balance sm:text-6xl"
+    >
+      Vizuální <span class="text-gradient">svět</span>
+    </h2>
+    <p class="mt-5 text-white/65 sm:text-lg">
+      Momenty z cesty napříč třemi identitami. Každá dlaždice zastupuje éru,
+      track nebo release.
+    </p>
+  </div>
+
+  <div class="grid auto-rows-[14rem] grid-cols-2 gap-4 md:grid-cols-3">
+    {
+      tiles.map((t, i) => (
+        <figure
+          class={`reveal tile group relative overflow-hidden rounded-3xl border border-white/10 ${
+            i === 0 || i === 5 ? "sm:row-span-2" : ""
+          }`}
+          style={`background:radial-gradient(120% 120% at 20% 10%, ${t.from}55, transparent 60%), linear-gradient(140deg, ${t.from}, ${t.to});animation-delay:${i * 70}ms`}
+        >
+          <div class="tile-noise absolute inset-0 opacity-[0.12]" />
+          <div class="absolute inset-0 bg-black/35 transition-colors duration-500 group-hover:bg-black/15" />
+          <figcaption class="absolute inset-0 flex flex-col justify-end p-5">
+            <span class="text-[0.65rem] tracking-[0.25em] text-white/70 uppercase">
+              {t.sub}
+            </span>
+            <span class="font-[var(--font-display)] text-2xl font-extrabold text-white drop-shadow-lg sm:text-3xl">
+              {t.tag}
+            </span>
+          </figcaption>
+          <span class="pointer-events-none absolute -inset-1 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-full" />
+        </figure>
+      ))
+    }
+  </div>
+</section>

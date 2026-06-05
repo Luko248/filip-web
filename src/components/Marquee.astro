@@ -1,0 +1,30 @@
+---
+const words = [
+  "underground",
+  "Brno",
+  "rap",
+  "od 2008",
+  "filio",
+  "dream diven boy",
+  "ddbfilio",
+  "umění",
+];
+// Duplicate the list so the -50% slide loops seamlessly.
+const loop = [...words, ...words];
+---
+
+<div
+  class="relative flex overflow-hidden border-y border-white/8 bg-white/[0.02] py-5 select-none"
+  aria-hidden="true"
+>
+  <div class="marquee">
+    {
+      loop.map((w) => (
+        <span class="flex items-center gap-8 font-[var(--font-display)] text-2xl font-bold tracking-tight text-white/25 sm:text-4xl">
+          {w}
+          <span class="text-[var(--color-magenta)]/60">✦</span>
+        </span>
+      ))
+    }
+  </div>
+</div>

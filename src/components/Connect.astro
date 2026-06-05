@@ -1,0 +1,54 @@
+---
+import { links, artist } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<section id="connect" class="snap relative mx-auto max-w-6xl px-6 py-24 sm:py-32">
+  <div class="reveal mb-14 max-w-2xl">
+    <p class="mb-3 text-xs tracking-[0.3em] text-[var(--color-cyan)] uppercase">
+      Kontakt
+    </p>
+    <h2
+      class="font-[var(--font-display)] text-4xl font-extrabold tracking-tight text-balance sm:text-6xl"
+    >
+      Najdeš mě <span class="text-gradient">všude</span>
+    </h2>
+    <p class="mt-5 text-white/65 sm:text-lg">
+      Sleduj {artist.stageName} na sociálních sítích a poslouchej na všech
+      hudebních platformách.
+    </p>
+  </div>
+
+  <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      links.map((l, i) => (
+        <li class="reveal" style={`animation-delay:${i * 60}ms`}>
+          <a
+            href={l.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="glass glass-hover group flex items-center gap-4 rounded-3xl p-6"
+          >
+            <span class="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white/5 text-white transition-colors duration-500 group-hover:bg-gradient-to-br group-hover:from-[var(--color-violet)] group-hover:to-[var(--color-magenta)]">
+              <Icon name={l.icon} class="size-6" />
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-[var(--font-display)] text-lg font-bold">
+                {l.label}
+              </span>
+              <span class="block truncate text-sm text-white/55">
+                {l.handle}
+              </span>
+            </span>
+            <span
+              class="translate-x-0 text-white/40 transition-all duration-500 group-hover:translate-x-1 group-hover:text-white"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

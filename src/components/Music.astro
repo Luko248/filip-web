@@ -1,0 +1,59 @@
+---
+import { artist, releases } from "../data/site";
+const embed = `https://open.spotify.com/embed/artist/${artist.spotifyArtistId}?utm_source=generator&theme=0`;
+---
+
+<section id="music" class="snap relative mx-auto max-w-6xl px-6 py-24 sm:py-32">
+  <div class="reveal mb-14 max-w-2xl">
+    <p class="mb-3 text-xs tracking-[0.3em] text-[var(--color-cyan)] uppercase">
+      Hudba
+    </p>
+    <h2
+      class="font-[var(--font-display)] text-4xl font-extrabold tracking-tight text-balance sm:text-6xl"
+    >
+      Poslouchej <span class="text-gradient">naživo</span>
+    </h2>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+    <!-- Live Spotify player -->
+    <div class="reveal glass overflow-hidden rounded-3xl p-2">
+      <iframe
+        title="Spotify přehrávač — ddbfilio"
+        src={embed}
+        width="100%"
+        height="420"
+        style="border-radius:18px;border:0;"
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      ></iframe>
+    </div>
+
+    <!-- Release list -->
+    <ol class="flex flex-col gap-4">
+      {
+        releases.map((r, i) => (
+          <li
+            class="reveal glass glass-hover group flex items-start gap-4 rounded-3xl p-6"
+            style={`animation-delay:${i * 80}ms`}
+          >
+            <span class="mt-1 inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-violet)] to-[var(--color-magenta)] font-[var(--font-display)] font-bold text-white">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="font-[var(--font-display)] text-xl font-bold">
+                  {r.title}
+                </h3>
+                <span class="rounded-full border border-white/15 px-2 py-0.5 text-[0.65rem] tracking-wide text-white/60 uppercase">
+                  {r.type} · {r.year}
+                </span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-white/60">{r.note}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

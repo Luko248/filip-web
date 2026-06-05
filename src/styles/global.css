@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — neo dark / glassmorphism palette
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #06040c;
+  --color-ink-2: #0c0916;
+  --color-haze: #15101f;
+  --color-violet: #8b5cf6;
+  --color-magenta: #e248ff;
+  --color-cyan: #36e2ff;
+  --color-glow: #a855f7;
+
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  /* Anchor offset for the fixed nav (logical property). */
+  scroll-padding-block-start: 6rem;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  background-color: var(--color-ink);
+  color: #ece7f5;
+  font-family: var(--font-body);
+  margin: 0;
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-magenta) 55%, transparent);
+  color: #fff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  inline-size: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-violet) 50%, #000);
+  border-radius: 999px;
+}
+
+/* ---------------------------------------------------------------------------
+   Ambient background — layered neon aurora + grain (zero JS)
+   --------------------------------------------------------------------------- */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      48rem 48rem at 12% -8%,
+      color-mix(in oklab, var(--color-violet) 38%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      40rem 40rem at 92% 4%,
+      color-mix(in oklab, var(--color-magenta) 30%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      52rem 52rem at 78% 96%,
+      color-mix(in oklab, var(--color-cyan) 22%, transparent),
+      transparent 60%
+    );
+  animation: drift 22s var(--ease-out-expo) infinite alternate;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(0, -2%, 0) scale(1.08);
+    filter: hue-rotate(28deg);
+  }
+}
+
+/* Noise overlay used inside gallery tiles (absolute, not fixed). */
+.tile-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Glass primitive — backdrop-filter card
+   --------------------------------------------------------------------------- */
+.glass {
+  background: color-mix(in oklab, #fff 6%, transparent);
+  border: 1px solid color-mix(in oklab, #fff 14%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, #fff 18%, transparent) inset,
+    0 24px 60px -28px color-mix(in oklab, var(--color-violet) 60%, #000);
+}
+
+.glass-hover {
+  transition:
+    transform 0.5s var(--ease-out-expo),
+    border-color 0.5s var(--ease-out-expo),
+    box-shadow 0.5s var(--ease-out-expo);
+}
+@media (hover: hover) {
+  .glass-hover:hover {
+    transform: translateY(-6px);
+    border-color: color-mix(in oklab, var(--color-magenta) 55%, transparent);
+    box-shadow:
+      0 1px 0 0 color-mix(in oklab, #fff 22%, transparent) inset,
+      0 30px 70px -24px color-mix(in oklab, var(--color-magenta) 65%, #000);
+  }
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-cyan),
+    var(--color-violet) 42%,
+    var(--color-magenta)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated conic ring used behind the hero name */
+.halo {
+  position: absolute;
+  inset: -30% -10%;
+  z-index: -1;
+  border-radius: 999px;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-violet),
+    var(--color-magenta),
+    var(--color-cyan),
+    var(--color-violet)
+  );
+  filter: blur(80px);
+  opacity: 0.5;
+  animation: spin 18s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll-driven reveal (CSS-first, animation-timeline: view())
+   --------------------------------------------------------------------------- */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: reveal both linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 28%;
+}
+
+/* Fallback for browsers without scroll-driven animations: just show it. */
+@supports not (animation-timeline: view()) {
+  .reveal {
+    animation: none;
+  }
+}
+
+/* Marquee strip */
+.marquee {
+  display: flex;
+  gap: 2.5rem;
+  inline-size: max-content;
+  animation: slide 30s linear infinite;
+}
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Section snap for that "snímatelné" full-screen feel */
+.snap {
+  scroll-snap-align: start;
+}
+
+/* ---------------------------------------------------------------------------
+   Accessibility — respect reduced motion & transparency
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--color-haze);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

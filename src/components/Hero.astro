@@ -1,0 +1,58 @@
+---
+import { artist } from "../data/site";
+---
+
+<section
+  id="home"
+  class="snap relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-6 pt-28 pb-16 text-center"
+>
+  <div class="relative">
+    <div class="halo"></div>
+
+    <p
+      class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-1.5 text-xs tracking-[0.25em] text-white/70 uppercase backdrop-blur-md"
+    >
+      <span
+        class="inline-block size-2 animate-pulse rounded-full bg-[var(--color-cyan)]"
+      ></span>
+      {artist.location}
+    </p>
+
+    <h1
+      class="font-[var(--font-display)] text-[clamp(3.5rem,17vw,11rem)] leading-[0.85] font-extrabold tracking-tight"
+    >
+      <span class="block text-white/95">ddb</span>
+      <span class="text-gradient block">filio</span>
+    </h1>
+
+    <p
+      class="mx-auto mt-7 max-w-xl text-base text-white/70 sm:text-lg text-balance"
+    >
+      {artist.intro}
+    </p>
+
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="#music"
+        class="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.03]"
+      >
+        Pustit hudbu
+        <span aria-hidden="true">→</span>
+      </a>
+      <a
+        href="#story"
+        class="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/85 transition-colors duration-300 hover:border-white/50 hover:text-white"
+      >
+        Příběh umělce
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div
+    class="absolute inset-x-0 bottom-7 flex flex-col items-center gap-2 text-[0.65rem] tracking-[0.3em] text-white/40 uppercase"
+  >
+    <span>scroll</span>
+    <span class="h-10 w-px animate-pulse bg-gradient-to-b from-white/50 to-transparent"></span>
+  </div>
+</section>

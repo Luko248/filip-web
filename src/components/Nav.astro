@@ -1,0 +1,43 @@
+---
+import { artist, nav } from "../data/site";
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 sm:pt-6"
+>
+  <nav
+    class="glass flex w-full max-w-5xl items-center justify-between gap-4 rounded-full px-5 py-3 sm:px-7"
+  >
+    <a
+      href="#home"
+      class="font-[var(--font-display)] text-lg font-extrabold tracking-tight"
+    >
+      <span class="text-gradient">{artist.stageName}</span>
+    </a>
+
+    <ul class="hidden items-center gap-7 text-sm text-white/70 md:flex">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="transition-colors duration-300 hover:text-white"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      href="#music"
+      class="group relative overflow-hidden rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white transition-colors duration-300 hover:border-white/40"
+    >
+      <span class="relative z-10">Poslouchat</span>
+      <span
+        class="absolute inset-0 -z-0 translate-y-full bg-gradient-to-r from-[var(--color-violet)] to-[var(--color-magenta)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0"
+      ></span>
+    </a>
+  </nav>
+</header>
