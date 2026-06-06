@@ -21,11 +21,24 @@ sections, conic halos and an animated aurora background.
 ## Develop
 
 ```bash
-npm install
-npm run dev      # http://localhost:4321
-npm run build    # static output → dist/
-npm run preview
+bun install
+bun run dev      # http://localhost:4321
+bun run build    # static output → dist/
+bun run preview
 ```
+
+(`npm` works too — a `package-lock.json` is kept alongside `bun.lock`.)
+
+## Deploy
+
+Pushes to `main` are built with **Bun** and deployed to **GitHub Pages** by
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+
+Live URL: **https://luko248.github.io/filip-web/**
+(the site is configured with `base: '/filip-web'` in `astro.config.mjs`).
+
+One-time setup: in the repo **Settings → Pages → Build and deployment**, set
+**Source: GitHub Actions**.
 
 ## Editing content
 
